@@ -36,8 +36,8 @@ echo "Options:"
 echo "   1) Download, unpack and move WordPress to provided directory"
 echo "   2) Import WordPress database and update URIs"
 echo "   3) Add security rules to wp-config (run this after installing WordPress)"
-echo "   4) Add security rules for Nginx (run this after installing Nginx)"
-echo "   5) Download Brute-Force Attacks Defender (mu-plugin + fail2ban)"
+echo "   4) Download additional rules for Nginx server block (run this after installing Nginx)"
+echo "   5) Download Login Protection plugin (mu-plugin + fail2ban)"
 echo "   6) Update the script"
 echo "   7) Exit or go to previous menu"
 echo
@@ -64,7 +64,7 @@ echo
 	fi
 
 case $WPOPT in
-	1) # Download, unzip and move WordPress folder
+	1) # Download, unpack and move WordPress folder
 	if [[ -d $MVWPLOC ]]; then
 		echo
 		read -p "It seems like WordPress folder is not empty, continue downlaod? [y/n]: " -e WPRDWN
@@ -102,7 +102,7 @@ case $WPOPT in
 		read updtdtbn
 		echo
 		echo "Please wait importing database..."
-	# clearing all tables in current database
+	# clear all tables in current database
 		mysql -Nse 'show tables' ${updtdtbn} | while read table; do mysql -e "drop table ${table}" ${updtdtbn}; done
 	# importing database
 		mysql ${updtdtbn} < ${pathdtbck}
@@ -136,7 +136,7 @@ case $WPOPT in
 			rm -rf updtSQL.sql
 			mysql -e "FLUSH PRIVILEGES;"
 			echo
-			echo -e "Remember to change entrys in 'wp-config.php' file, a specially table_prefix = '$table_pref'\nand copy backup of wp-content to new WordPress directory "
+			echo -e "Remember to change entries in 'wp-config.php' file, a specially table_prefix = '$table_pref'\nand copy backup of wp-content to new WordPress directory "
 			echo
 		else
 			echo
@@ -148,7 +148,7 @@ case $WPOPT in
 		echo
 		exit
 	;;
-	3) # Downlaod wp-restrictions for Nginx
+	3) # Downlaod additional entries for wp-config.php
 		if [[ ! -f $MVWPLOC/wp-config.php ]]; then
 			echo
 			echo -e "It seems like WordPress is not installed yet\nor wp-config.php is in different location."
@@ -168,7 +168,7 @@ case $WPOPT in
 			fi
 		fi
 	;;
-	4) # Downlaod additional configuration for Nginx
+	4) # Downlaod additional configuration for Nginx server block
 	if [[ ! -d /etc/nginx/conf.d ]]; then
 		echo
 		echo -e "It seems like Nginx is not installed or directory /etc/nginx/conf.d doesn't exist. Exiting."
@@ -186,10 +186,10 @@ case $WPOPT in
 		echo
 		wget https://raw.githubusercontent.com/intsez/WordPress/master/wp_nx_restr.conf
 		echo
-		echo "Rules saved in '/etc/nginx/conf.d/'. Adjust them as need it and reload Nginx."
+		echo -e "Rules saved in '/etc/nginx/conf.d/', adjust them as need it. Don't forget to add directive 'include conf.d/*.conf;' to server block of your virtual host\n and reload Nginx."
 	fi
 	;;
-	5) # Select, download then install plugins and 'mu-plugins'"
+	5) # Login protection 'mu-plugins'"
 	if [[ ! -d /etc/fail2ban ]]; then
 		echo "It seems like fail2ban is not installed, this plugin won't work without fail2ban."
 		read -p "Install fail2ban? [y/n]: " -e F2B_INST
@@ -200,7 +200,7 @@ case $WPOPT in
 	if [[ ! -d $MVWPLOC/wp-content/mu-plugins ]]; then
 		mkdir -p $MVWPLOC/wp-content/mu-plugins
 	fi
-	# Download configuration for mu-plugin
+	# Configuration  for mu-plugin
 	if [[ -e $MVWPLOC/wp-content/mu-plugins/wordpress-auth.php ]]; then
 		echo
 		echo "Plugin already installed."
@@ -209,7 +209,7 @@ case $WPOPT in
 	else
 		cd $MVWPLOC/wp-content/mu-plugins || exit 1
 		echo -e "<?php\nfunction login_failed_403() {\nstatus_header( 403 );\n}\nadd_action( 'wp_login_failed', 'login_failed_403' );" > wordpress-auth.php
-	# Download configuration for fail2ban
+	# Configuration for fail2ban
 		cd /etc/fail2ban/filter.d || exit 1
 		echo -e "[Definition]\nfailregex = <HOST>.*POST.*(wp-login\.php|xmlrpc\.php).* 403 " > wordpress-auth.conf
 		echo -e "\n[wordpress-auth]\nenabled = true\nport = http,https\nfilter = wordpress-auth\nlogpath = /var/log/nginx/access.log\nmaxretry = 3\nbantime = 3600" >> /etc/fail2ban/jail.local
