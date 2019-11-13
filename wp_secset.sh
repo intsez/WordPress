@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #############################################################################################
-# Enter full, valid path to new or existing location of the WordPress directory,
+# Enter full, valid path to the new or existing location of the WordPress directory,
 # e.g. /var/www/wordpress or /var/www/myblog:" (# ls -alh /var/www < command can be useful)
 MVWPLOC=/var/www/myblog
 #############################################################################################
@@ -74,6 +74,12 @@ case $WPOPT in
 			echo
 		fi
 	fi
+	;;
+	2)
+		echo
+		echo "Comming soon"
+		echo
+
 	;;
 	3) # Downlaod wp-restrictions for Nginx
 		if [[ ! -f $MVWPLOC/wp-config.php ]]; then
@@ -161,7 +167,7 @@ case $WPOPT in
 	;;
 	6) # Update the script
 		echo
-		wget https://raw.githubusercontent.com/intsez/WordPressl/master/wp_secset.sh -O wp_secset.sh
+		wget https://raw.githubusercontent.com/intsez/WordPress/master/wp_secset.sh -O wp_secset.sh
 		chmod +x wp_secset.sh
 		echo ""
 		echo "Update done."
@@ -178,7 +184,7 @@ case $WPOPT in
 		exit
 	;;
 esac
-# cleaning after install
+# cleaning after installation
 echo
 rm -rf /usr/local/src/wordpress
 echo
