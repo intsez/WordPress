@@ -33,7 +33,7 @@ clear
 
 # Main menu
 echo "Options:"
-echo "   1) Download, unzip, move WordPress to provided directory"
+echo "   1) Download, unpack and move WordPress to provided directory"
 echo "   2) Import WordPress database and update URIs"
 echo "   3) Add security rules to wp-config (run this after installing WordPress)"
 echo "   4) Add security rules for Nginx (run this after installing Nginx)"
