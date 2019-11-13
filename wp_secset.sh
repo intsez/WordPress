@@ -17,7 +17,7 @@ newaddr=https://to_new_URI.io
 # clean Screen
 clear
 echo
-echo -e "Before we start open this script (wp_secset.sh) in any text editor and provide valid path to your existing or new Wordpress directory e.g.: ${MVWPLOC}"
+echo -e "Before we can start open the script (wp_secset.sh) in any text editor and provide valid path to your existing or new Wordpress directory e.g.: ${MVWPLOC}"
 echo
 echo "Press any key to continue or ctrl+c to cancel..."
 read -n1 -r -p ""
@@ -34,10 +34,10 @@ clear
 # Main menu
 echo "Options:"
 echo "   1) Download, unzip, move WordPress to provided directory"
-echo "   2) Import WordPress database and update URIs after migration"
-echo "   3) Add security rules to wp-config (use this after installing WordPress)"
-echo "   4) Add security rules for Nginx (use this after installing Nginx)"
-echo "   5) Download Brute-Force Attacks Defender (mu-plugin+fail2ban)"
+echo "   2) Import WordPress database and update URIs"
+echo "   3) Add security rules to wp-config (run this after installing WordPress)"
+echo "   4) Add security rules for Nginx (run this after installing Nginx)"
+echo "   5) Download Brute-Force Attacks Defender (mu-plugin + fail2ban)"
 echo "   6) Update the script"
 echo "   7) Exit or go to previous menu"
 echo
