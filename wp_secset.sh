@@ -1,9 +1,14 @@
 #!/bin/bash
+echo
+echo -e "Before we start open this script 'wp_secset.sh' in any editor\nand provide valid path to your Wordpress directory."
+echo
+echo "Press any key to continue or ctrl+c to cancel..."
+read -n1 -r -p ""
 
 #############################################################################################
 # Enter full, valid path to the new or existing location of the WordPress directory,
-# e.g. /var/www/wordpress or /var/www/myblog:" (# ls -alh /var/www < command can be useful)
-MVWPLOC=/var/www/myblog
+# e.g. /var/www/wordpress or /var/www/myblog:" (# ls -alh /var/www < command may be useful)
+MVWPLOC=/var/www/wordpress
 #############################################################################################
 
 # Run script as root
