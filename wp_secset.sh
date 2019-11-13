@@ -37,7 +37,7 @@ echo "   1) Download, unzip, move WordPress to provided directory"
 echo "   2) Import WordPress database and update URIs after migration"
 echo "   3) Add security rules to wp-config (use this after installing WordPress)"
 echo "   4) Add security rules for Nginx (use this after installing Nginx)"
-echo "   5) Download mu-plugins (Brute Force Attack Deffender)"
+echo "   5) Download Brute-Force Attacks Defender (mu-plugin+fail2ban)"
 echo "   6) Update the script"
 echo "   7) Exit or go to previous menu"
 echo
