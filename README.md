@@ -1,5 +1,5 @@
 ## WordPress
-Few additional security rules for WordPress installed on LEMP stack in Debian/Ubuntu distros.
+The script helps to set and secure the WordPress blog system installed on the LEMP stack in Debian/Ubuntu distributions.
 
 ## How to run the script?
 Copy/paste into terminal:
