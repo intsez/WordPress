@@ -1,5 +1,5 @@
 ## WordPress
-Script helps to set and secure WordPress blog system installed on the LEMP stack in Debian/Ubuntu distributions.
+Script helps to set and secure WordPress installed on the LEMP stack in Debian/Ubuntu distributions.
 
 ## How to run the script?
 Copy/paste into terminal:
