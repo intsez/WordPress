@@ -31,15 +31,18 @@ fi
 # Clean Screen
 clear
 
+echo "All source files will be downloaded to /usr/local/src/wordpress directory"
+echo ""
+
 # Main menu
 echo "Options:"
-echo "   1) Download, unpack and move WordPress to provided directory"
+echo "   1) Download, unzip and move WordPress to provided directory"
 echo "   2) Import WordPress database and update URIs"
 echo "   3) Add security rules to wp-config (run this after installing WordPress)"
 echo "   4) Download additional rules for Nginx server block (run this after installing Nginx)"
 echo "   5) Download Login Protection plugin (mu-plugin + fail2ban)"
 echo "   6) Update the script"
-echo "   7) Exit or go to previous menu"
+echo "   7) Exit"
 echo
 
 	while [[ $WPOPT !=  "1" && $WPOPT != "2" && $WPOPT != "3" && $WPOPT != "4" && $WPOPT != "5" && $WPOPT != "6" && $WPOPT != "7" ]]; do
@@ -53,13 +56,15 @@ echo
 	if [[ ! -f /usr/bin/unzip ]]; then
 		echo
 		echo "Please wait installing unzip..."
-        	apt install unzip -y &>/dev/null
+        	apt update
+		apt install unzip -y
 		echo
 	fi
 	if [[ ! -f /usr/bin/wget ]]; then
 		echo
 		echo "Please wait installing wget...."
-        	apt install wget -y &>/dev/null
+        	apt update
+		apt install wget -y 
 		echo
 	fi
 
@@ -90,6 +95,8 @@ case $WPOPT in
 			echo
 		fi
 	fi
+	./wp_secset.sh
+	exit
 	;;
 	2) # Import Wordpress database and update URIs
 		echo
@@ -146,6 +153,7 @@ case $WPOPT in
 		echo "Press any key to continue..."
 		read -n1 -r -p ""
 		echo
+		./wp_secset.sh
 		exit
 	;;
 	3) # Downlaod additional entries for wp-config.php
@@ -167,6 +175,8 @@ case $WPOPT in
 				echo "Wrong path or wp-config.php doesn't exist"
 			fi
 		fi
+		./wp_secset.sh
+		exit
 	;;
 	4) # Downlaod additional configuration for Nginx server block
 	if [[ ! -d /etc/nginx/conf.d ]]; then
@@ -188,6 +198,8 @@ case $WPOPT in
 		echo
 		echo -e "Rules saved in '/etc/nginx/conf.d/', adjust them as need it. Don't forget to add directive 'include conf.d/*.conf;' to server block of your virtual host\n and reload Nginx."
 	fi
+	./wp_secset.sh
+	exit
 	;;
 	5) # Login protection 'mu-plugins'"
 	if [[ ! -d /etc/fail2ban ]]; then
@@ -231,6 +243,8 @@ case $WPOPT in
 		echo " - Cookie Law"
 		echo " - JetPack"
 	fi
+	./wp_secset.sh
+	exit
 	;;
 	6) # Update the script
 		echo
@@ -251,7 +265,3 @@ case $WPOPT in
 		exit
 	;;
 esac
-# cleaning after installation
-echo
-rm -rf /usr/local/src/wordpress
-echo
