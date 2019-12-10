@@ -31,6 +31,9 @@ fi
 # Clean Screen
 clear
 
+# current dir
+wai=$PWD
+
 echo "All source files will be downloaded to /usr/local/src/wordpress directory"
 echo ""
 
@@ -64,7 +67,7 @@ echo
 		echo
 		echo "Please wait installing wget...."
         	apt update
-		apt install wget -y 
+		apt install wget -y
 		echo
 	fi
 
@@ -95,6 +98,7 @@ case $WPOPT in
 			echo
 		fi
 	fi
+	cd $wai
 	./wp_secset.sh
 	exit
 	;;
@@ -153,6 +157,7 @@ case $WPOPT in
 		echo "Press any key to continue..."
 		read -n1 -r -p ""
 		echo
+		cd $wai
 		./wp_secset.sh
 		exit
 	;;
@@ -175,6 +180,7 @@ case $WPOPT in
 				echo "Wrong path or wp-config.php doesn't exist"
 			fi
 		fi
+		cd $wai
 		./wp_secset.sh
 		exit
 	;;
@@ -198,6 +204,7 @@ case $WPOPT in
 		echo
 		echo -e "Rules saved in '/etc/nginx/conf.d/', adjust them as need it. Don't forget to add directive 'include conf.d/*.conf;' to server block of your virtual host\n and reload Nginx."
 	fi
+	cd $wai
 	./wp_secset.sh
 	exit
 	;;
@@ -243,6 +250,7 @@ case $WPOPT in
 		echo " - Cookie Law"
 		echo " - JetPack"
 	fi
+	cd $wai
 	./wp_secset.sh
 	exit
 	;;
